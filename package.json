@@ -1,0 +1,33 @@
+{
+  "name": "cycle-server-rendering",
+  "version": "0.0.1",
+  "description": "Cycle.js Server Side Rendering Examples",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-client": "./node_modules/.bin/webpack --config webpack.config.js --progress",
+    "build-server": "./node_modules/.bin/babel src --out-dir build",
+    "run-server": "node build/server.js",
+    "start": "npm run build-client && npm run build-server && npm run run-server"
+  },
+  "keywords": [
+    "Cycle",
+    "universal",
+    "isomorphic"
+  ],
+  "author": "Mike Montoya",
+  "license": "MIT",
+  "dependencies": {
+    "@cycle/core": "^6.0.0",
+    "@cycle/dom": "^9.0.1",
+    "express": "^4.13.3",
+    "rx": "^4.0.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.4.5",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.1.0",
+    "babel-preset-es2015": "^6.3.13",
+    "webpack": "^1.12.9"
+  }
+}
