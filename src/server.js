@@ -74,6 +74,9 @@ server.use((req, res) => {
   // ******* MYSTERY *********
   // The HTML driver uses the `.last()` operator to figure out when the app is done
   // updating the DOM.  How does that even work in a Cycle app where observables never end?
+  //
+  // My current theory is that the HTMLDriver doesn't do all that circular dependency magic
+  // like the DOMDriver does.  Its code is much simpler and seems to emit a normal observable.
   // *************************
   //Subscribe to the HTML Driver events
   //HTML driver returns a string representation of the vTree.
