@@ -13,6 +13,7 @@ let {
   makeHTMLDriver
 } = require('@cycle/dom')
 let {makeHTTPDriver} = require('@cycle/http')
+let {makeServerHistoryDriver} = require('@cycle/history')
 let app = require('../build/app').default
 let theData = require('./data.js') //cached data from the github api
 
@@ -35,12 +36,13 @@ function prependHTML5Doctype(appHTML) {
   return `<!doctype html>${appHTML}`
 }
 
-function wrapAppResultWithBoilerplate(appFn) {
+function wrapAppResultWithBoilerplate(appFn, takeOptions) {
   return function wrappedAppFn(sources) {
     const theApp = appFn(sources)
     return {
-      DOM: theApp.DOM.map(wrapVTreeWithHTMLBoilerplate),
-      HTTP: theApp.HTTP,
+      DOM: theApp.DOM.take(takeOptions.dom).map(wrapVTreeWithHTMLBoilerplate),
+      HTTP: theApp.HTTP.take(takeOptions.http),
+      History: theApp.History,
     }
   }
 }
@@ -72,14 +74,24 @@ server.use((req, res) => {
     return
   }
 
+  //Define how many DOM and HTTP events we need to take from the app
+  //You may want to define these numbers in your route config and read them here.
+  //I chose not to since this examle is so simple.
+  //You'll know if these numbers are wrong because your HTML response won't happen.
+  const takeOptions = {
+    dom: 1,
+    http: req.url === '/repos' ? 1 : 0, //repo list has one http request, the other page has none
+  }
+
   //Prepare Cycle.js app for Server Rendering
   //In this case, we wrap the app's vTree with the full page HTML.
-  let wrappedAppFn = wrapAppResultWithBoilerplate(app)
+  let wrappedAppFn = wrapAppResultWithBoilerplate(app, takeOptions)
 
   //Run the Cycle app.
   let cycleApp = Cycle.run(wrappedAppFn, {
     DOM: makeHTMLDriver(),
     HTTP: makeHTTPDriver(),
+    History: makeServerHistoryDriver({pathname: req.url}),
   })
   let sources = cycleApp.sources
 

@@ -20,9 +20,11 @@
   "dependencies": {
     "@cycle/core": "^6.0.0",
     "@cycle/dom": "^9.0.1",
+    "@cycle/history": "^1.1.0",
     "@cycle/http": "^7.0.0",
     "express": "^4.13.3",
-    "rx": "^4.0.7"
+    "rx": "^4.0.7",
+    "url-mapper": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",
