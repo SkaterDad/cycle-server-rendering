@@ -20,6 +20,7 @@
   "dependencies": {
     "@cycle/core": "^6.0.0",
     "@cycle/dom": "^9.0.1",
+    "@cycle/http": "^7.0.0",
     "express": "^4.13.3",
     "rx": "^4.0.7"
   },
