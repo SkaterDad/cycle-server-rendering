@@ -2,7 +2,7 @@ import {div, h3, em, button} from '@cycle/dom'
 import Rx from 'rx'
 
 const colors = [
-  {bg: 'Pink', font: 'Black'},
+  {bg: 'White', font: 'Black'},
   {bg: 'Gray', font: 'White'},
   {bg: 'Green', font: 'Yellow'},
   {bg: 'Red', font: 'Black'},

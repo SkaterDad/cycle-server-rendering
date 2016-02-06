@@ -40,7 +40,7 @@ function wrapAppResultWithBoilerplate(appFn, takeOptions) {
   return function wrappedAppFn(sources) {
     const theApp = appFn(sources)
     return {
-      DOM: theApp.DOM.take(takeOptions.dom).map(wrapVTreeWithHTMLBoilerplate),
+      DOM: theApp.DOM.map(wrapVTreeWithHTMLBoilerplate).take(takeOptions.dom),
       HTTP: theApp.HTTP.take(takeOptions.http),
       History: theApp.History,
     }

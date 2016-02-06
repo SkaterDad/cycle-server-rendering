@@ -8,12 +8,19 @@ import app from './app'
 function clientSideApp(sources) {
   let sinks = app(sources)
 
-  // With the history driver and some routing, it's a
-  // lot simpler to mount the client code.
-  // Only have to skip one DOM update, which comes from
-  // the routing observable.  The content of the
-  // route is no longer a factor here thanks to that.
-  sinks.DOM = sinks.DOM.skip(1)
+  //
+  //  MYSTERY!
+  //
+  //  What to skip, and how many?
+  //
+  //  sinks.DOM.skip(1) prevents re-drawing, but also prevents
+  //  any DOM events in the route components from working.
+  //
+  //  sinks.History.skip(1) doesn't prevent redrawing, 
+  //  and also doesn't prevent the client code from
+  //  re-requesting HTTP data.
+  //
+  //  what to do?
 
   return sinks
 }
